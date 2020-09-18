@@ -1,0 +1,16 @@
+.searchBar {
+  background: #4c4f53;
+  padding: 7px 0;
+}
+input[type="search"] {
+  margin: 0 7px;
+  width: 227px;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 2px 4px;
+}
+.searchBar button {
+  background: #fff;
+  padding: 2px 5px;
+  border-radius: 5px;
+}

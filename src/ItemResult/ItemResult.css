@@ -1,0 +1,21 @@
+.itemResult {
+  display: flex;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed #96999c;
+}
+.itemResult div:first-child {
+  margin-right: 10px;
+}
+h2 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+p {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+.textSnippet {
+  font-style: italic;
+}

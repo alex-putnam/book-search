@@ -1,0 +1,10 @@
+.filterOptions {
+  background: #6c6f73;
+  padding: 7px 0;
+}
+select {
+  background: #eee;
+}
+#printType {
+  margin-right: 10px;
+}

@@ -1,26 +1,76 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import SearchForm from "./SearchForm/SearchForm";
+import ResultsList from "./ResultsList/ResultsList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    searchTerm: "",
+    printType: "all",
+    bookType: "",
+    resultsList: [],
+  };
+
+  valueChanged(objKey, objVal) {
+    this.setState({
+      [objKey]: objVal,
+    });
+  }
+
+  searchBooks(e) {
+    e.preventDefault();
+    const url = "https://www.googleapis.com/books/v1/volumes";
+    const key = "AIzaSyBMS0uboSRKZ19piscGfddfcu6F6aqt1IY";
+    const params = {
+      q: this.state.searchTerm,
+      printType: this.state.printType,
+      key: key,
+    };
+    if (this.state.bookType.length > 1) {
+      params.filter = this.state.bookType;
+    }
+    const queryString = this.formatQueryParams(params);
+    const search = `${url}?${queryString}`;
+    fetch(search)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Something went wrong");
+        }
+        return res;
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({
+          resultsList: data.items,
+        });
+      });
+  }
+
+  formatQueryParams(params) {
+    const queryItems = Object.keys(params).map(
+      (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
+    );
+    return queryItems.join("&");
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <header>
+          <h1>Google Book Search</h1>
+          <SearchForm
+            onSearch={this.searchBooks.bind(this)}
+            valueChanged={this.valueChanged.bind(this)}
+            searchTerm={this.state.searchTerm}
+          />
+        </header>
+        <main>
+          <ResultsList resultsList={this.state.resultsList} />
+        </main>
+        <footer>©2020 Developed By Alex Putnam</footer>
+      </div>
+    );
+  }
 }
 
 export default App;
