@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import "./App.css";
-import SearchForm from "./SearchForm/SearchForm";
-import ResultsList from "./ResultsList/ResultsList";
+import React, { Component } from 'react';
+import './App.css';
+import SearchForm from './SearchForm/SearchForm';
+import ResultsList from './ResultsList/ResultsList';
 
 class App extends Component {
   state = {
-    searchTerm: "",
-    printType: "all",
-    bookType: "",
+    searchTerm: '',
+    printType: 'all',
+    bookType: '',
     resultsList: [],
   };
 
@@ -19,8 +19,8 @@ class App extends Component {
 
   searchBooks(e) {
     e.preventDefault();
-    const url = "https://www.googleapis.com/books/v1/volumes";
-    const key = "AIzaSyBMS0uboSRKZ19piscGfddfcu6F6aqt1IY";
+    const url = 'https://www.googleapis.com/books/v1/volumes';
+    const key = process.env.apiToken;
     const params = {
       q: this.state.searchTerm,
       printType: this.state.printType,
@@ -34,7 +34,7 @@ class App extends Component {
     fetch(search)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Something went wrong");
+          throw new Error('Something went wrong');
         }
         return res;
       })
@@ -50,7 +50,7 @@ class App extends Component {
     const queryItems = Object.keys(params).map(
       (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
     );
-    return queryItems.join("&");
+    return queryItems.join('&');
   }
 
   render() {
