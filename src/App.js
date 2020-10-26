@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import SearchForm from './SearchForm/SearchForm';
 import ResultsList from './ResultsList/ResultsList';
+require('dotenv').config();
 
 class App extends Component {
   state = {
